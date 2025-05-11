@@ -1,0 +1,51 @@
+import banco from "../config/banco.js";
+
+export const TIPOS_USUARIO = {
+    CLIENTE: 1,
+    EMPRESA: 2,
+};
+
+const Usuario = banco.sequelize.define("usuarios", {
+    id: {
+        type: banco.Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    nome: {
+        type: banco.Sequelize.STRING(100),
+        allowNull: false,
+    },
+    email: {
+        type: banco.Sequelize.STRING(100),
+        unique: true,
+        allowNull: false,
+        validate: {
+            isEmail: true,
+        },
+    },
+    senha: {
+        type: banco.Sequelize.STRING(250),
+        allowNull: false,
+    },
+    tipo: {
+        type: banco.Sequelize.INTEGER,
+        allowNull: false,
+        validate: {
+            isIn: [[TIPOS_USUARIO.CLIENTE, TIPOS_USUARIO.EMPRESA]],
+        },
+    },
+    cpf_cnpj: {
+        type: banco.Sequelize.STRING(20),
+        allowNull: false,
+        unique: true,
+    },
+    status: {
+        type: banco.Sequelize.INTEGER,
+        defaultValue: 1,
+    },
+});
+
+
+//Usuario.sync();
+
+export default Usuario;

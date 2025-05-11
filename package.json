@@ -12,13 +12,19 @@
   "license": "ISC",
   "dependencies": {
     "@handlebars/allow-prototype-access": "^1.0.5",
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
     "body-parser": "^2.2.0",
+    "connect-flash": "^0.1.1",
+    "cpf-cnpj-validator": "^1.0.3",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-handlebars": "^8.0.3",
     "express-session": "^1.18.1",
     "handlebars": "^4.7.8",
     "mysql2": "^3.14.1",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "sequelize": "^6.37.7"
   }
