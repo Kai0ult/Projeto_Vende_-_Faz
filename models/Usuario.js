@@ -2,7 +2,7 @@ import banco from "../config/banco.js";
 
 export const TIPOS_USUARIO = {
     CLIENTE: 1,
-    EMPRESA: 2,
+    ANUNCIANTE: 2,
 };
 
 const Usuario = banco.sequelize.define("usuarios", {
@@ -19,9 +19,6 @@ const Usuario = banco.sequelize.define("usuarios", {
         type: banco.Sequelize.STRING(100),
         unique: true,
         allowNull: false,
-        validate: {
-            isEmail: true,
-        },
     },
     senha: {
         type: banco.Sequelize.STRING(250),
@@ -31,7 +28,7 @@ const Usuario = banco.sequelize.define("usuarios", {
         type: banco.Sequelize.INTEGER,
         allowNull: false,
         validate: {
-            isIn: [[TIPOS_USUARIO.CLIENTE, TIPOS_USUARIO.EMPRESA]],
+            isIn: [[TIPOS_USUARIO.CLIENTE, TIPOS_USUARIO.ANUNCIANTE]],
         },
     },
     cpf_cnpj: {
@@ -46,6 +43,6 @@ const Usuario = banco.sequelize.define("usuarios", {
 });
 
 
-//Usuario.sync();
+//Usuario.sync({ alter: true });
 
 export default Usuario;

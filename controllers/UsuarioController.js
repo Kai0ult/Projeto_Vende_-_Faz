@@ -10,21 +10,26 @@ class UsuarioController {
     }
 
     salvar = async (req, res) => {
-        const { nome, email, senha, tipo, cpf_cnpj } = req.body
+        
+        let nome = req.body.nome
+        let email = req.body.email
+        let senha = req.body.senha
+        let tipo =  req.body.tipo
+        let cpf_cnpj = req.body.cpf_cnpj
 
-        const user = await Usuario.findOne({ where: { email } });
+        let user = await Usuario.findOne({ where: { email } }) 
 
         if (user) {
             req.flash('error_msg', 'Usuário já cadastrado!')
             return res.redirect('/usuario/cadastro')
         }
 
-        if (tipo == '1') {
+        if (tipo === 1) {
             if (!cpf.isValid(cpf_cnpj)) {
                 req.flash('error_msg', 'CPF inválido!')
                 return res.redirect('/usuario/cadastro')
             }
-        } else if (tipo == '2') {
+        } else if (tipo === 2) {
             if (!cnpj.isValid(cpf_cnpj)) {
                 req.flash('error_msg', 'CNPJ inválido!')
                 return res.redirect('/usuario/cadastro')
@@ -50,9 +55,9 @@ class UsuarioController {
             req.flash('success_msg', 'Cadastro realizado com sucesso! Faça login.')
             return res.redirect('/usuario/login')
         } catch (err) {
-            console.error('Erro ao cadastrar usuário:', err)
-            req.flash('error_msg', 'Erro interno ao cadastrar usuário.')
-            return res.redirect('/usuario/cadastro')
+            console.error('Erro ao cadastrar usuário:', err.errors || err);
+            req.flash('error_msg', 'Erro interno ao cadastrar usuário.');
+            return res.redirect('/usuario/cadastro');
         }
     }
 
