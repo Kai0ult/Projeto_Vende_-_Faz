@@ -43,6 +43,6 @@ const Usuario = banco.sequelize.define("usuarios", {
 });
 
 
-//Usuario.sync({ alter: true });
+//Usuario.sync();
 
 export default Usuario;

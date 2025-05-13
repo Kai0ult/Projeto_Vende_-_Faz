@@ -38,3 +38,15 @@
 </form>
 
 <p>Possui conta? <a href="/usuario/login">Log in</a></p>
+
+{{#if success_msg}}
+  <div class="alert success">{{success_msg}}</div>
+{{/if}}
+
+{{#if error_msg}}
+  <div class="alert error">{{error_msg}}</div>
+{{/if}}
+
+{{#if error}}
+  <div class="alert error">{{error}}</div>
+{{/if}}

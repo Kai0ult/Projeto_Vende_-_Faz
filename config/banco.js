@@ -14,7 +14,7 @@ const sequelize = new Sequelize(DB_NAME, USER_NAME, PASSWORD, {
     timezone: '-03:00',
 })
 
-sequelize.authenticate().then(function () {
+await sequelize.authenticate().then(function () {
     console.log('Conectado ao banco com sucesso!.');
 }).catch(function (error) {
     console.log('Falha na conexão: ' + error);
