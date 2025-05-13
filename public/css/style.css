@@ -1,0 +1,99 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/*Painel esquerdo */
+.left-panel {
+    background-color: #ffffff;
+    padding: 0rem;
+    text-align: center;
+    display: flex;    
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/*Logo */
+.logo-top {
+    align-self: flex-start;
+    margin-bottom: 0;
+    z-index: 10;
+}
+
+.logo-top img {
+    height: 40px;
+}
+
+/*Painel direito */
+.right-panel {
+    background-color: #336699;
+    color: #fff;
+}
+
+/*Título do formulário */
+.title {
+    color: #fff;
+    font-family: 'Lobster Two', cursive;
+}
+
+/*Destaque no subtítulo */
+.highlight {
+    color: #86BBD8;
+}
+
+/*Estilização do Toggle*/
+.toggle-switch .btn-toggle {
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid #9EE493;
+    border-radius: 20px;
+    padding: 0.5rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.toggle-switch .btn-check:checked + .btn-toggle {
+    background-color: #9EE493;
+    color: #000;
+    border-color: #9EE493;
+}
+
+.toggle-switch .btn-toggle:hover {
+    background-color: #86BBD8;
+    color: #fff;
+}
+
+/* Formulário */
+.form-box .form-control {
+    border-radius: 0.5rem;
+}
+
+/* Foco dos inputs selecionados*/
+.form-control:focus {
+    border: 3px solid #9EE493;
+    box-shadow: none;
+    outline: none;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .left-panel,
+    .right-panel {
+        width: 100%;
+    }
+}
+
+/* Botão Acessar */
+.btn-success {
+    background-color: #9EE493;
+    color: #000;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #86BBD8;
+}
+
+/* Link de login */
+.login-link {
+    color: #9EE493;
+    text-decoration: underline;
+}
