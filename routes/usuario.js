@@ -6,12 +6,12 @@ const router = express.Router()
 
 router.get('/cadastro', UsuarioController.cadastrar)
 
-router.post('/salvar',  UsuarioController.salvar)
+router.post('/salvar', UsuarioController.salvar)
 
-router.get('/login',  UsuarioController.login)
+router.get('/login', UsuarioController.login)
 
 router.post('/logar', UsuarioController.logar)
 
-router.get('/logout', UsuarioController.logout)
+router.get('/logout', logado, UsuarioController.logout)
 
 export default router

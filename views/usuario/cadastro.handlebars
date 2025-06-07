@@ -23,15 +23,15 @@
     <div class="col-12 col-md-6 right-panel d-flex flex-column justify-content-center align-items-center p-4">
       <div class="form-box w-75">
         <h2 class="text-center title mb-4">Cadastro</h2>
-        
-        <form action="/usuario/salvar" method="POST">
-        <div class="btn-group w-100 mb-3 toggle-switch" role="group">
-          <input type="radio" class="btn-check" name="tipo" id="cliente" value=1 checked>
-          <label class="btn btn-toggle" for="cliente">Cliente</label>
 
-          <input type="radio" class="btn-check" name="tipo" id="anunciante" value=2>
-          <label class="btn btn-toggle" for="anunciante">Anunciante</label>
-        </div>
+        <form action="/usuario/salvar" method="POST">
+          <div class="btn-group w-100 mb-3 toggle-switch" role="group">
+            <input type="radio" class="btn-check" name="tipo" id="cliente" value=1 checked>
+            <label class="btn btn-toggle" for="cliente">Cliente</label>
+
+            <input type="radio" class="btn-check" name="tipo" id="anunciante" value=2>
+            <label class="btn btn-toggle" for="anunciante">Anunciante</label>
+          </div>
 
           <div class="mb-3">
             <label for="nome" class="form-label">Nome</label>
@@ -64,8 +64,10 @@
   </div>
 </div>
 
-<p>Possui conta? <a href="/usuario/login">Log in</a></p>
 
+
+<!--
+<p>Possui conta? <a href="/usuario/login">Log in</a></p>
 {{#if success_msg}}
   <div class="alert success">{{success_msg}}</div>
 {{/if}}
@@ -76,4 +78,4 @@
 
 {{#if error}}
   <div class="alert error">{{error}}</div>
-{{/if}}
+{{/if}}-->

@@ -1,5 +1,5 @@
 import Usuario from '../models/Usuario.js'
-import passaport from 'passport'
+import passport from 'passport'
 import bcrypt from 'bcryptjs'
 import { cpf, cnpj } from 'cpf-cnpj-validator'
 
@@ -65,7 +65,7 @@ class UsuarioController {
     }
 
     logar = (req, res, next) => {
-        passaport.authenticate('local', {
+        passport.authenticate('local', {
             successRedirect: '/',
             failureRedirect: '/usuario/login',
             failureFlash: true
