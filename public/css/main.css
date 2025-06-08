@@ -1,0 +1,75 @@
+.logo{height: 50px;}
+
+.border-blue{
+    border-bottom:  3px solid #336799;
+}
+
+nav li a img{height: 45px;}
+
+.main{width: 100vw;}
+
+.banner{
+    background-color: #336799;
+    height: 300px;
+    background-image: url(../images/no-image.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-origin: content-box;
+    background-attachment: local;
+    background-position: 80% center;
+}
+#btn-banner{
+    width: 190px;
+    margin-top: 16px;
+}
+
+.green-text{color: #9DE592;}
+
+.blue-text{color: #336799;}
+
+.btn-green{background-color: #9DE592;}
+
+.gradient{
+    background: linear-gradient(180deg, hsla(209, 50%, 40%, 1) 50%, rgb(255, 255, 255) 50%);
+}
+
+.card-image{
+    max-width: 50%;
+    align-self: center;
+    margin-top: 8px;
+}
+
+.d-card-row{
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 15px;
+}
+
+.w-card{max-width: 25rem;}
+
+.w-card-lg{max-width: 30rem;}
+
+.border-none{
+    border: none;
+    border-radius: 0%;
+}
+
+.icon-footer{height: 32px;}
+
+footer li{padding: 8px !important;}
+
+@media (max-width: 600px) {
+    .d-card-row{
+        flex-direction: column;
+        align-items: center;
+    }
+    .w-card{width: 80%;}
+    .w-card-lg{width: 90%;}
+    .w-card-lg img{
+        max-height: 300px;
+    }
+    nav li a{padding: 8px;}
+}

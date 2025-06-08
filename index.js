@@ -47,7 +47,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-    res.send("Pagina Principal")
+    res.render("usuario/principal")
 })
 
 app.get('/cadastro', (req, res) => {
