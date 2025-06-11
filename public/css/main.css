@@ -1,75 +1,185 @@
-.logo{height: 50px;}
-
-.border-blue{
-    border-bottom:  3px solid #336799;
+.logo {
+    height: 50px;
 }
 
-nav li a img{height: 45px;}
+.border-blue {
+    border-bottom: 3px solid #336799;
+}
 
-.main{width: 100vw;}
+nav li a img {
+    height: 40px;
+}
 
-.banner{
+.main {
+    width: 100vw;
+}
+
+.green-text {
+    color: #9DE592;
+}
+
+.blue-text {
+    color: #336799;
+}
+
+.icon-footer {
+    height: 32px;
+}
+
+footer li {
+    padding: 8px !important;
+}
+
+/* ====== BANNER ====== */
+.banner {
     background-color: #336799;
-    height: 300px;
-    background-image: url(../images/no-image.png);
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-origin: content-box;
-    background-attachment: local;
-    background-position: 80% center;
-}
-#btn-banner{
-    width: 190px;
-    margin-top: 16px;
+    padding: 3rem 2rem 0rem 0rem;
+    color: white;
+    height: auto;
 }
 
-.green-text{color: #9DE592;}
-
-.blue-text{color: #336799;}
-
-.btn-green{background-color: #9DE592;}
-
-.gradient{
-    background: linear-gradient(180deg, hsla(209, 50%, 40%, 1) 50%, rgb(255, 255, 255) 50%);
+.banner h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1.4;
 }
 
-.card-image{
+#btn-banner {
+    width: 220px;
+    margin-top: 2px;
+    background-color: #9DE592;
+    border: none;
+    color: #000;
+    font-weight: 500;
+}
+#btn-banner:hover {
+    background-color: #86BBD8;
+    color: #fff;
+}
+
+.gradient {
+    background: linear-gradient(180deg, #336799 50%, #fff 50%);
+    padding: 2rem 0 2rem;
+}
+
+/* ====== CARDS: Produtos e Serviços ====== */
+.card {
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 1rem 0.5rem;
+    text-align: center;
+}
+
+.card-image {
     max-width: 50%;
     align-self: center;
     margin-top: 8px;
 }
 
-.d-card-row{
+.d-card-row {
     display: flex;
     justify-content: center;
-    gap: 35px;
+    gap: 50px;
     flex-wrap: wrap;
-    margin: 0;
-    padding: 15px;
+    margin: 0 auto;
+    padding: 1rem 1rem;
+    width: 100%;
 }
 
-.w-card{max-width: 25rem;}
+.w-card {
+    max-width: 400px;
+    background-color: #fff;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
 
-.w-card-lg{max-width: 30rem;}
+/* ====== MÉTRICAS (Anunciantes) ====== */
+.metrics {
+    text-align: center;
+    padding: 3rem 0;
+}
 
-.border-none{
+.metrics h1 {
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+
+.metrics h5 {
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+}
+
+/* ====== CARDS DE ANUNCIANTES ====== */
+.w-card-lg {
+    max-width: 650px;
+    width: 100%;
+    margin-bottom: 2rem;
+    background-color: #f8f9fa;
     border: none;
-    border-radius: 0%;
 }
 
-.icon-footer{height: 32px;}
+.w-card-lg .card-body {
+    padding: 1rem 1.5rem;
+}
 
-footer li{padding: 8px !important;}
+.w-card-lg img {
+    max-width: 100%;
+    height: auto;
+    padding: 1rem;
+    object-fit: cover;
+}
 
-@media (max-width: 600px) {
-    .d-card-row{
+/* ====== RESPONSIVO ====== */
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.95);
+        z-index: 1050;
+        padding: 1rem;
+        box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .navbar {
+        position: relative;
+        z-index: 1060;
+    }
+}
+
+@media (max-width: 768px) {
+    .banner {
+        text-align: center;
+        padding: 2rem 1rem;
+    }
+
+    .banner .row {
+        flex-direction: column-reverse;
+    }
+
+    .banner img {
+        max-width: 80%;
+        margin-bottom: 1rem;
+    }
+
+    .banner h2 {
+        font-size: 1.6rem;
+    }
+
+    .w-card {
+        width: 90%;
+    }
+
+    .w-card-lg {
+        width: 95%;
+    }
+
+    .w-card-lg img {
+        max-height: 250px;
+    }
+
+    .d-card-row {
         flex-direction: column;
         align-items: center;
     }
-    .w-card{width: 80%;}
-    .w-card-lg{width: 90%;}
-    .w-card-lg img{
-        max-height: 300px;
-    }
-    nav li a{padding: 8px;}
 }

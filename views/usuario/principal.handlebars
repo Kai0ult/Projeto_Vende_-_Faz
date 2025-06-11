@@ -1,27 +1,41 @@
 <link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/style.css">
 {{>nav}}
+{{> announcement}}
 <div class="container-fluid p-0">
-    <div class="banner text-white p-5 w-100">
-        <h2>Anúncios de produtos<br>e serviços locais em<br>
-            <span class="green-text">um só lugar</span>
-        </h2>
-        <a href="#" id="btn-banner" class="btn btn-green">Comece aqui</a>
-    </div>
-    <div class="row text-center d-card-row gradient">
-        <div class="card col-6 shadow w-card">
-            <img src="./images/no-image.png" class="card-img-top card-image" alt="...">
-            <div class="card-body">
-                <h3 class="card-title green-text">Produtos</h3>
-                <a href="#" class="btn btn-green w-50">Confira</a>
+    <div class="banner text-white w-100 d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center align-items-center text-center text-md-start">
+                <div class="col-md-5 mb-4 mb-md-0">
+                    <h2 class="mb-3">
+                        Anúncios de produtos<br>e serviços locais em<br>
+                        <span class="green-text">um só lugar</span>
+                    </h2>
+                    <a href="/usuario/cadastro" id="btn-banner" class="btn btn-success">Comece aqui</a>
+                </div>
+                <div class="col-md-7 text-center">
+                    <img src="/images/m.png" alt="Imagem ilustrativa" class="card-image" style="max-width: 75%;">
+                </div>
             </div>
         </div>
-        <div class="card col-6 shadow w-card">
-            <img src="./images/no-image.png" class="card-img-top card-image" alt="...">
-            <div class="card-body">
-                <h3 class="card-title green-text">Serviços</h3>
-                <a href="#" class="btn btn-green w-50">Confira</a>
+    </div>
+    <div class="gradient py-5">
+        <div class="d-card-row text-center">
+            <div class="card shadow w-card">
+                <img src="./images/produto.png" class="card-img-top card-image" alt="Produto">
+                <div class="card-body">
+                    <h3 class="card-title green-text">Produtos</h3>
+                    <a href="#" class="btn btn-success w-50">Confira</a>
+                </div>
             </div>
-        </div>  
+            <div class="card shadow w-card">
+                <img src="./images/servico.png" class="card-img-top card-image" alt="Serviço">
+                <div class="card-body">
+                    <h3 class="card-title green-text">Serviços</h3>
+                    <a href="#" class="btn btn-success w-50">Confira</a>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row d-card-row text-center pt-5 pb-5 mt-5 mb-5">
         <div class="col-6 w-auto blue-text">
