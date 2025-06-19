@@ -1,12 +1,9 @@
 import Sequelize from 'sequelize'
-import dotenv from 'dotenv'
 
-dotenv.config();
-
-const DB_NAME = process.env.DB_NAME
-const USER_NAME = process.env.DB_USER_NAME
-const PASSWORD = process.env.DB_PASSWORD
-const HOST = process.env.DB_HOST
+const DB_NAME = 'bd_vende_faz'
+const USER_NAME = 'root'
+const PASSWORD = 'pc0038bd'
+const HOST = 'localhost'
 
 const sequelize = new Sequelize(DB_NAME, USER_NAME, PASSWORD, {
     host: HOST,

@@ -1,58 +1,52 @@
-import Usuario from '../models/Usuario.js'
-import passport from 'passport'
-import bcrypt from 'bcryptjs'
-import { cpf, cnpj } from 'cpf-cnpj-validator'
-
+import Usuario from '../models/Usuario.js';
+import passport from 'passport';
+import bcrypt from 'bcryptjs';
+import { cpf } from 'cpf-cnpj-validator';
 
 class UsuarioController {
     cadastrar = (req, res) => {
-        res.render('usuario/cadastro')
+        res.render('usuario/cadastro');
     }
 
     salvar = async (req, res) => {
-
         let nome = req.body.nome;
         let email = req.body.email;
         let senha = req.body.senha;
-        let tipo = parseInt(req.body.tipo);
-        let cpf_cnpj = req.body.cpf_cnpj;
+        let cpfInput = req.body.cpf;
 
-        let user = await Usuario.findOne({ where: { email } })
+        // Verifica se o usuário já existe pelo email
+        let user = await Usuario.findOne({ where: { email } });
         if (user) {
-            req.flash('error_msg', 'Usuário já cadastrado!')
-            return res.redirect('/usuario/cadastro')
+            req.flash('error_msg', 'Email já cadastrado!');
+            return res.redirect('/usuario/cadastro');
         }
 
-        if (tipo === 1) {
-            if (!cpf.isValid(cpf_cnpj)) {
-                req.flash('error_msg', 'CPF inválido!')
-                return res.redirect('/usuario/cadastro')
-            }
-        } else if (tipo === 2) {
-            if (!cnpj.isValid(cpf_cnpj)) {
-                req.flash('error_msg', 'CNPJ inválido!')
-                return res.redirect('/usuario/cadastro')
-            }
-        } else {
-            req.flash('error_msg', 'Tipo de usuário inválido!')
-            return res.redirect('/usuario/cadastro')
+        // Verifica se o CPF é válido
+        if (!cpf.isValid(cpfInput)) {
+            req.flash('error_msg', 'CPF inválido!');
+            return res.redirect('/usuario/cadastro');
         }
 
-        const saltRounds = 10
-        const senhaCriptografada = await bcrypt.hash(senha, saltRounds)
+        // Verifica se o CPF já existe na base
+        const cpfExistente = await Usuario.findOne({ where: { cpf: cpfInput } });
+        if (cpfExistente) {
+            req.flash('error_msg', 'CPF já cadastrado!');
+            return res.redirect('/usuario/cadastro');
+        }
 
         try {
+            const senhaCriptografada = await bcrypt.hash(senha, 10);
+
             await Usuario.create({
                 nome,
                 email,
                 senha: senhaCriptografada,
-                tipo,
-                cpf_cnpj,
+                cpf: cpfInput,
                 status: 1
-            })
+            });
 
-            req.flash('success_msg', 'Cadastro realizado com sucesso! Faça login.')
-            return res.redirect('/usuario/login')
+            req.flash('success_msg', 'Cadastro realizado com sucesso! Faça login.');
+            return res.redirect('/usuario/login');
         } catch (err) {
             console.error('Erro ao cadastrar usuário:', err);
             req.flash('error_msg', 'Erro interno ao cadastrar usuário.');
@@ -61,26 +55,26 @@ class UsuarioController {
     }
 
     login = (req, res) => {
-        res.render('usuario/login')
+        res.render('usuario/login');
     }
 
     logar = (req, res, next) => {
         passport.authenticate('local', {
-            successRedirect: '/',
+            successRedirect: '/principal',
             failureRedirect: '/usuario/login',
             failureFlash: true
-        })(req, res, next)
+        })(req, res, next);
     }
 
     logout = (req, res, next) => {
         req.logout((erro) => {
             if (erro) {
-                console.error("Erro ao fazer logout:", erro)
-                return next(erro)
+                console.error("Erro ao fazer logout:", erro);
+                return next(erro);
             }
-            res.redirect('/usuario/login')
-        })
+            res.redirect('/usuario/login');
+        });
     }
 }
 
-export default new UsuarioController()
+export default new UsuarioController();

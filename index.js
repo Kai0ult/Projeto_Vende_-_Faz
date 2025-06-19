@@ -4,8 +4,6 @@ const app = express();
 import handlebars from "express-handlebars";
 import Handlebars from "handlebars";
 import bodyParser from "body-parser";
-import dotenv from "dotenv";
-dotenv.config();
 import path from "path";
 import { fileURLToPath } from 'url';
 import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access";
@@ -17,7 +15,7 @@ import passport from 'passport';
 auth(passport)
 
 app.use(session({
-    secret: process.env.SS_SECRET,
+    secret: '1n5t1tut0F3d3r4l',
     resave: true,
     saveUninitialized: false
 }))
@@ -50,12 +48,19 @@ app.get('/', (req, res) => {
     res.render("usuario/principal")
 })
 
+app.get('/principal', (req, res) => {
+    res.render("usuario/principal")
+})
+
 app.get('/cadastro', (req, res) => {
     res.render('usuario/cadastro');
 });
 
 import usuario from './routes/usuario.js'
 app.use('/usuario', usuario)
+
+import anunciante_empresa from './routes/anunciante_empresa.js'
+app.use('/anunciante_empresa', anunciante_empresa)
 
 app.use((err, req, res, next) => {
     console.error(err.stack)
