@@ -44,6 +44,7 @@ app.use(bodyParser.json())
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(express.static(path.join(__dirname, 'public')));
 
+import usuario from './routes/usuario.js'
 app.get('/', (req, res) => {
     res.render("usuario/principal")
 })
@@ -56,7 +57,6 @@ app.get('/cadastro', (req, res) => {
     res.render('usuario/cadastro');
 });
 
-import usuario from './routes/usuario.js'
 app.use('/usuario', usuario)
 
 import anunciante_empresa from './routes/anunciante_empresa.js'
@@ -67,5 +67,10 @@ app.use((err, req, res, next) => {
     req.flash('error_msg', 'Erro interno!')
     res.redirect('/')
 })
+
+app.get('/principal', usuario, (req, res) => {
+    const nome = req.user.nome
+    res.render("usuario/principal", { nome })
+});
 
 app.listen(3000, () => console.log('Servidor Rodando em http://localhost:3000'))
