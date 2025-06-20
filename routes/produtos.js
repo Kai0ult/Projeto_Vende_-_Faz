@@ -3,11 +3,11 @@ import ProdutoController from '../controllers/ProdutoController.js';
 
 const router = express.Router();
 
-router.get('/listar', ensureAuthenticated, ProdutoController.listar);
-router.get('/cadastro', ensureAuthenticated, ProdutoController.cadastrar);
-router.post('/salvar', ensureAuthenticated, ProdutoController.salvar);
-router.get('/editar/:id', ensureAuthenticated, ProdutoController.editar);
-router.post('/atualizar/:id', ensureAuthenticated, ProdutoController.atualizar);
-router.post('/excluir/:id', ensureAuthenticated, ProdutoController.excluir);
+router.get('/listar', ProdutoController.listar);
+router.get('/cadastro', ProdutoController.cadastrar);
+router.post('/salvar', ProdutoController.salvar);
+router.get('/editar/:id',  ProdutoController.editar);
+router.post('/atualizar/:id',ProdutoController.atualizar);
+router.post('/excluir/:id', ProdutoController.excluir);
 
 export default router;
