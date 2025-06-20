@@ -1,74 +1,98 @@
-import AnuncianteEmpresa from '../models/AnuncianteEmpresa.js';
-import passport from 'passport';
-import bcrypt from 'bcryptjs';
-import { cpf, cnpj } from 'cpf-cnpj-validator';
+import AnuncianteEmpresa from '../models/AnuncianteEmpresa.js'
+import passport from 'passport'
+import bcrypt from 'bcryptjs'
+import { cpf, cnpj } from 'cpf-cnpj-validator'
 
 class AnuncianteEmpresaController {
     cadastrar = (req, res) => {
-        res.render('anunciante_empresa/cadastro');
+        res.render('anunciante_empresa/cadastro')
     }
 
     salvar = async (req, res) => {
-    const { nome, email, senha, cpf_cnpj, telefone } = req.body;
+        let nome = req.body.nome;
+        let email = req.body.email;
+        let senha = req.body.senha;
+        let cpfCnpjInput = req.body.cpf_cnpj;
+        let telefone = req.body.telefone;
 
-    // Detecta se a requisição é API (ex: Insomnia) ou navegador (ex: form)
-    const isAPI = req.headers.accept?.includes('application/json') || req.headers['content-type'] === 'application/json';
+        const isAPI = req.headers.accept?.includes('application/json') || req.headers['content-type'] === 'application/json';
 
-    try {
-        if (!nome || !email || !senha || !cpf_cnpj || !telefone) {
+        
+        if (!nome || !email || !senha || !cpfCnpjInput || !telefone) {
             const msg = 'Campos obrigatórios ausentes';
             return isAPI
                 ? res.status(400).json({ erro: msg })
-                : (req.flash('error_msg', msg), res.redirect('/anunciante/cadastro'));
+                : (req.flash('error_msg', msg), res.redirect('/anunciante_empresa/cadastro'));
         }
 
-        if (!cpf.isValid(cpf_cnpj) && !cnpj.isValid(cpf_cnpj)) {
+        
+        let documentoLimpado = null;
+        if (cpf.isValid(cpfCnpjInput)) {
+            documentoLimpado = cpf.strip(cpfCnpjInput);
+        } else if (cnpj.isValid(cpfCnpjInput)) {
+            documentoLimpado = cnpj.strip(cpfCnpjInput);
+        } else {
             const msg = 'CPF ou CNPJ inválido!';
             return isAPI
                 ? res.status(400).json({ erro: msg })
-                : (req.flash('error_msg', msg), res.redirect('/anunciante/cadastro'));
+                : (req.flash('error_msg', msg), res.redirect('/anunciante_empresa/cadastro'));
         }
 
         const emailExistente = await AnuncianteEmpresa.findOne({ where: { email } });
-        const docExistente = await AnuncianteEmpresa.findOne({ where: { cpf_cnpj } });
-        const telefoneExistente = await AnuncianteEmpresa.findOne({ where: { telefone } });
-
-        if (emailExistente || docExistente || telefoneExistente) {
-            const msg = 'Já existe um cadastro com os dados informados';
+        if (emailExistente) {
+            const msg = 'Email já cadastrado!';
             return isAPI
                 ? res.status(409).json({ erro: msg })
-                : (req.flash('error_msg', msg), res.redirect('/anunciante/cadastro'));
+                : (req.flash('error_msg', msg), res.redirect('/anunciante_empresa/cadastro'));
         }
 
-        const senhaCriptografada = await bcrypt.hash(senha, 10);
+        const docExistente = await AnuncianteEmpresa.findOne({ where: { cpf_cnpj: documentoLimpado } });
+        if (docExistente) {
+            const msg = 'CPF ou CNPJ já cadastrado!';
+            return isAPI
+                ? res.status(409).json({ erro: msg })
+                : (req.flash('error_msg', msg), res.redirect('/anunciante_empresa/cadastro'));
+        }
 
-        const novo = await AnuncianteEmpresa.create({
-            nome,
-            email,
-            senha: senhaCriptografada,
-            cpf_cnpj,
-            telefone,
-            status: 1
-        });
+        const telefoneExistente = await AnuncianteEmpresa.findOne({ where: { telefone } });
+        if (telefoneExistente) {
+            const msg = 'Telefone já cadastrado!';
+            return isAPI
+                ? res.status(409).json({ erro: msg })
+                : (req.flash('error_msg', msg), res.redirect('/anunciante_empresa/cadastro'));
+        }
 
-        const sucessoMsg = 'Cadastro realizado com sucesso! Faça login.';
+    
+        try {
+            const senhaCriptografada = await bcrypt.hash(senha, 10);
 
-        return isAPI
-            ? res.status(201).json({ mensagem: sucessoMsg, anunciante: novo })
-            : (req.flash('success_msg', sucessoMsg), res.redirect('/anunciante/login'));
+            const novo = await AnuncianteEmpresa.create({
+                nome,
+                email,
+                senha: senhaCriptografada,
+                cpf_cnpj: documentoLimpado,
+                telefone,
+                status: 1
+            });
 
-    } catch (err) {
-        console.error('Erro ao cadastrar anunciante:', err);
-        const erroMsg = 'Erro interno ao cadastrar anunciante.';
+            const sucessoMsg = 'Cadastro realizado com sucesso! Faça login.';
 
-        return isAPI
-            ? res.status(500).json({ erro: erroMsg })
-            : (req.flash('error_msg', erroMsg), res.redirect('/anunciante/cadastro'));
+            return isAPI
+                ? res.status(201).json({ mensagem: sucessoMsg, anunciante: novo })
+                : (req.flash('success_msg', sucessoMsg), res.redirect('/anunciante_empresa/login'));
+
+        } catch (err) {
+            console.error('Erro ao cadastrar anunciante:', err);
+            const erroMsg = 'Erro interno ao cadastrar anunciante.';
+
+            return isAPI
+                ? res.status(500).json({ erro: erroMsg })
+                : (req.flash('error_msg', erroMsg), res.redirect('/anunciante_empresa/cadastro'));
+        }
     }
-}
 
     login = (req, res) => {
-        res.render('anunciante_empresa/login');
+        res.render('anunciante_empresa/login')
     }
 
     logar = (req, res, next) => {
@@ -76,17 +100,17 @@ class AnuncianteEmpresaController {
             successRedirect: '/principal',
             failureRedirect: '/anunciante_empresa/login',
             failureFlash: true
-        })(req, res, next);
+        })(req, res, next)
     }
 
     logout = (req, res, next) => {
         req.logout((erro) => {
             if (erro) {
-                console.error("Erro ao fazer logout:", erro);
-                return next(erro);
+                console.error("Erro ao fazer logout:", erro)
+                return next(erro)
             }
-            res.redirect('/anunciante_empresa/login');
-        });
+            res.redirect('/anunciante_empresa/login')
+        })
     }
 }
 

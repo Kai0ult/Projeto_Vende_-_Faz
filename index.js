@@ -1,17 +1,17 @@
-import express from 'express';
-const app = express();
+import express from 'express'
+const app = express()
 
-import handlebars from "express-handlebars";
-import Handlebars from "handlebars";
-import bodyParser from "body-parser";
-import path from "path";
-import { fileURLToPath } from 'url';
-import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access";
+import handlebars from "express-handlebars"
+import Handlebars from "handlebars"
+import bodyParser from "body-parser"
+import path from "path"
+import { fileURLToPath } from 'url'
+import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access"
 import auth from './config/autenticacao.js'
-import logado from './config/regras.js';
+import logado from './config/regras.js'
 import session from 'express-session'
 import flash from 'connect-flash'
-import passport from 'passport';
+import passport from 'passport'
 auth(passport)
 
 app.use(session({
@@ -35,14 +35,14 @@ app.engine('handlebars', handlebars.engine({
     defaultLayout: 'index',
     handlebars: allowInsecurePrototypeAccess(Handlebars),
 
-}));
-app.set('view engine', 'handlebars');
+}))
+app.set('view engine', 'handlebars')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-app.use(express.static(path.join(__dirname, 'public')));
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+app.use(express.static(path.join(__dirname, 'public')))
 
 import usuario from './routes/usuario.js'
 app.get('/', (req, res) => {
@@ -54,8 +54,8 @@ app.get('/principal', (req, res) => {
 })
 
 app.get('/cadastro', (req, res) => {
-    res.render('usuario/cadastro');
-});
+    res.render('usuario/cadastro')
+})
 
 app.use('/usuario', usuario)
 
@@ -71,6 +71,6 @@ app.use((err, req, res, next) => {
 app.get('/principal', usuario, (req, res) => {
     const nome = req.user.nome
     res.render("usuario/principal", { nome })
-});
+})
 
 app.listen(3000, () => console.log('Servidor Rodando em http://localhost:3000'))

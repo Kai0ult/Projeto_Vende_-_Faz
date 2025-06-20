@@ -1,4 +1,4 @@
-import banco from "../config/banco.js";
+import banco from "../config/banco.js"
 
 const AnuncianteEmpresa = banco.sequelize.define("anunciante_empresa", {
     id: {
@@ -33,9 +33,9 @@ const AnuncianteEmpresa = banco.sequelize.define("anunciante_empresa", {
         type: banco.Sequelize.INTEGER,
         defaultValue: 1,
     }
-});
+})
 
 
-//AnuncianteEmpresa.sync();
+//AnuncianteEmpresa.sync()
 
-export default AnuncianteEmpresa;
+export default AnuncianteEmpresa

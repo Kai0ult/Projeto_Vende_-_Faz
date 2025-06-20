@@ -1,4 +1,4 @@
-import banco from "../config/banco.js";
+import banco from "../config/banco.js"
 
 const Usuario = banco.sequelize.define("usuarios", {
     id: {
@@ -28,9 +28,9 @@ const Usuario = banco.sequelize.define("usuarios", {
         type: banco.Sequelize.INTEGER,
         defaultValue: 1,
     },
-});
+})
 
 
-//Usuario.sync();
+//Usuario.sync()
 
-export default Usuario;
+export default Usuario
