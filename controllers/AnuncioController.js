@@ -4,7 +4,7 @@ class AnuncioController {
     listar = async (req, res) => {
         try {
             const anuncios = await Anuncio.findAll({
-                where: { id_anunciante_empresa: req.user.id }
+                where: { anunciante_empresa_id: req.user.id }
             });
             res.render('anuncio/listar', { anuncios });
         } catch (err) {
@@ -36,26 +36,34 @@ class AnuncioController {
                 preco_servico,
                 categoria,
                 status: 1,
-                id_anunciante_empresa: req.user.id
+                anunciante_empresa_id: req.user.id
             });
 
             const msg = 'Anúncio cadastrado com sucesso!';
+            console.log('Usuário logado:', req.user)  
             return isAPI
                 ? res.status(201).json({ mensagem: msg, anuncio: novo })
                 : (req.flash('success_msg', msg), res.redirect('/anuncio/listar'));
+                
+                
         } catch (err) {
+            console.log('Usuário logado:', req.user)  
             console.error('Erro ao salvar anúncio:', err);
             const erroMsg = 'Erro interno ao salvar anúncio.';
             return isAPI
                 ? res.status(500).json({ erro: erroMsg })
                 : (req.flash('error_msg', erroMsg), res.redirect('/anuncio/cadastro'));
+                
         }
+      
     }
+    
+
 
     editar = async (req, res) => {
         try {
             const anuncio = await Anuncio.findByPk(req.params.id);
-            if (!anuncio || anuncio.id_anunciante_empresa !== req.user.id) {
+            if (!anuncio || anuncio.anunciante_empresa_id !== req.user.id) {
                 req.flash('error_msg', 'Anúncio não encontrado.');
                 return res.redirect('/anuncio/listar');
             }
@@ -73,7 +81,7 @@ class AnuncioController {
 
         try {
             const anuncio = await Anuncio.findByPk(id);
-            if (!anuncio || anuncio.id_anunciante_empresa !== req.user.id) {
+            if (!anuncio || anuncio.anunciante_empresa_id !== req.user.id) {
                 req.flash('error_msg', 'Anúncio não encontrado.');
                 return res.redirect('/anuncio/listar');
             }
@@ -91,7 +99,7 @@ class AnuncioController {
     excluir = async (req, res) => {
         try {
             const anuncio = await Anuncio.findByPk(req.params.id);
-            if (!anuncio || anuncio.id_anunciante_empresa !== req.user.id) {
+            if (!anuncio || anuncio.anunciante_empresa_id !== req.user.id) {
                 req.flash('error_msg', 'Anúncio não encontrado.');
                 return res.redirect('/anuncio/listar');
             }

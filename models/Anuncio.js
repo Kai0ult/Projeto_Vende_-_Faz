@@ -26,6 +26,14 @@ const Anuncio = banco.sequelize.define("anuncios", {
         type: banco.Sequelize.INTEGER,
         defaultValue: 1,
     },
+    anunciante_empresa_id: {
+        type: banco.Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'anunciante_empresas', 
+            key: 'id'
+        }
+    }
 
 })
 Anuncio.belongsTo(AnuncianteEmpresa, {
@@ -34,6 +42,6 @@ Anuncio.belongsTo(AnuncianteEmpresa, {
     as: 'anunciante_empresa'
 })
 
-Anuncio.sync()
+//Anuncio.sync()
 
 export default Anuncio

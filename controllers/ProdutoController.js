@@ -4,7 +4,7 @@ class ProdutoController {
     listar = async (req, res) => {
         try {
             const produtos = await Produto.findAll({
-                where: { id_anunciante_empresa: req.user.id }
+                where: { anunciante_empresa_id: req.user.id }
             });
             res.render('produto/listar', { produtos });
         } catch (err) {
@@ -38,7 +38,7 @@ class ProdutoController {
                 foto,
                 categoria,
                 status: 1,
-                id_anunciante_empresa: req.user.id
+                anunciante_empresa_id: req.user.id
             });
 
             const msg = 'Produto cadastrado com sucesso!';
@@ -57,7 +57,7 @@ class ProdutoController {
     editar = async (req, res) => {
         try {
             const produto = await Produto.findByPk(req.params.id);
-            if (!produto || produto.id_anunciante_empresa !== req.user.id) {
+            if (!produto || produto.anunciante_empresa_id !== req.user.id) {
                 req.flash('error_msg', 'Produto não encontrado.');
                 return res.redirect('/produto/listar');
             }
@@ -75,7 +75,7 @@ class ProdutoController {
 
         try {
             const produto = await Produto.findByPk(id);
-            if (!produto || produto.id_anunciante_empresa !== req.user.id) {
+            if (!produto || produto.anunciante_empresa_id !== req.user.id) {
                 req.flash('error_msg', 'Produto não encontrado.');
                 return res.redirect('/produto/listar');
             }
@@ -93,7 +93,7 @@ class ProdutoController {
     excluir = async (req, res) => {
         try {
             const produto = await Produto.findByPk(req.params.id);
-            if (!produto || produto.id_anunciante_empresa !== req.user.id) {
+            if (!produto || produto.anunciante_empresa_id !== req.user.id) {
                 req.flash('error_msg', 'Produto não encontrado.');
                 return res.redirect('/produto/listar');
             }

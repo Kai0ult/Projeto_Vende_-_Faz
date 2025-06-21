@@ -33,6 +33,14 @@ const Produtos = banco.sequelize.define("produtos", {
         type: banco.Sequelize.INTEGER,
         defaultValue: 1,
     },
+    anunciante_empresa_id: {
+        type: banco.Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'anunciante_empresas',
+            key: 'id'
+        }
+    }
 
 })
 Produtos.belongsTo(AnuncianteEmpresa, {
@@ -41,6 +49,6 @@ Produtos.belongsTo(AnuncianteEmpresa, {
     as: 'anunciante_empresa'
 })
 
-Produtos.sync()
+//Produtos.sync()
 
 export default Produtos

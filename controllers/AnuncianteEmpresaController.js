@@ -17,7 +17,7 @@ class AnuncianteEmpresaController {
 
         const isAPI = req.headers.accept?.includes('application/json') || req.headers['content-type'] === 'application/json';
 
-        
+
         if (!nome || !email || !senha || !cpfCnpjInput || !telefone) {
             const msg = 'Campos obrigatórios ausentes';
             return isAPI
@@ -25,7 +25,7 @@ class AnuncianteEmpresaController {
                 : (req.flash('error_msg', msg), res.redirect('/anunciante_empresa/cadastro'));
         }
 
-        
+
         let documentoLimpado = null;
         if (cpf.isValid(cpfCnpjInput)) {
             documentoLimpado = cpf.strip(cpfCnpjInput);
@@ -62,7 +62,7 @@ class AnuncianteEmpresaController {
                 : (req.flash('error_msg', msg), res.redirect('/anunciante_empresa/cadastro'));
         }
 
-    
+
         try {
             const senhaCriptografada = await bcrypt.hash(senha, 10);
 
@@ -96,11 +96,11 @@ class AnuncianteEmpresaController {
     }
 
     logar = (req, res, next) => {
-        passport.authenticate('local', {
+        passport.authenticate('anunciante-local', {
             successRedirect: '/principal',
             failureRedirect: '/anunciante_empresa/login',
             failureFlash: true
-        })(req, res, next)
+        })(req, res, next);
     }
 
     logout = (req, res, next) => {
