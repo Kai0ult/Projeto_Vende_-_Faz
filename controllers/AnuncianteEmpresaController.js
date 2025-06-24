@@ -96,11 +96,25 @@ class AnuncianteEmpresaController {
     }
 
     logar = (req, res, next) => {
-        passport.authenticate('anunciante-local', {
-            successRedirect: '/principal',
-            failureRedirect: '/anunciante_empresa/login',
-            failureFlash: true
-        })(req, res, next);
+        passport.authenticate('anunciante-local', (err, user, info) => {
+            if (err) {
+                console.error('Erro no login:', err)
+                return next(err)
+            }
+            if (!user) {
+                req.flash('error_msg', info?.message || 'Falha ao autenticar')
+                return res.redirect('/anunciante_empresa/login')
+            }
+
+            req.logIn(user, (err) => {
+                if (err) {
+                    console.error('Erro ao logar usuário:', err)
+                    return next(err)
+                }
+                return res.redirect('/anunciante_empresa/principal')
+            })
+
+        })(req, res, next)
     }
 
     logout = (req, res, next) => {

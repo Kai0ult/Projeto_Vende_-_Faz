@@ -18,7 +18,7 @@ const Anuncio = banco.sequelize.define("anuncios", {
     preco_servico: {
         type: banco.Sequelize.FLOAT,
         allowNull: false
-    },  
+    },
     categoria: {
         type: banco.Sequelize.STRING(50)
     },
@@ -30,7 +30,7 @@ const Anuncio = banco.sequelize.define("anuncios", {
         type: banco.Sequelize.INTEGER,
         allowNull: false,
         references: {
-            model: 'anunciante_empresas', 
+            model: AnuncianteEmpresa,
             key: 'id'
         }
     }
@@ -39,7 +39,7 @@ const Anuncio = banco.sequelize.define("anuncios", {
 Anuncio.belongsTo(AnuncianteEmpresa, {
     foreignKey: 'anunciante_empresa_id',
     constraint: true,
-    as: 'anunciante_empresa'
+    as: 'anunciante_empresas'
 })
 
 //Anuncio.sync()

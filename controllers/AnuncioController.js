@@ -10,7 +10,7 @@ class AnuncioController {
         } catch (err) {
             console.error('Erro ao listar anúncios:', err);
             req.flash('error_msg', 'Erro ao carregar anúncios.');
-            res.redirect('/principal');
+            res.redirect('/anunciante_empresa/principal');
         }
     }
 
@@ -40,25 +40,23 @@ class AnuncioController {
             });
 
             const msg = 'Anúncio cadastrado com sucesso!';
-            console.log('Usuário logado:', req.user)  
+            console.log('Usuário logado:', req.user)
             return isAPI
                 ? res.status(201).json({ mensagem: msg, anuncio: novo })
                 : (req.flash('success_msg', msg), res.redirect('/anuncio/listar'));
-                
-                
+
+
         } catch (err) {
-            console.log('Usuário logado:', req.user)  
+            console.log('Usuário logado:', req.user)
             console.error('Erro ao salvar anúncio:', err);
             const erroMsg = 'Erro interno ao salvar anúncio.';
             return isAPI
                 ? res.status(500).json({ erro: erroMsg })
                 : (req.flash('error_msg', erroMsg), res.redirect('/anuncio/cadastro'));
-                
-        }
-      
-    }
-    
 
+        }
+
+    }
 
     editar = async (req, res) => {
         try {

@@ -8,7 +8,7 @@ import bcrypt from 'bcryptjs'
 export default (passport) => {
 
     passport.use('usuario-local', new LocalStrategy(
-        { usernameField: 'email', passwordField: 'password' },
+        { usernameField: 'email', passwordField: 'senha' },
         async (email, password, done) => {
             try {
                 const usuario = await Usuario.findOne({ where: { email } });
@@ -29,7 +29,7 @@ export default (passport) => {
     ));
 
     passport.use('anunciante-local', new LocalStrategy(
-        { usernameField: 'email', passwordField: 'password' },
+        { usernameField: 'email', passwordField: 'senha' },
         async (email, password, done) => {
             try {
                 const anunciante = await AnuncianteEmpresa.findOne({ where: { email } });
