@@ -1,6 +1,6 @@
 import banco from "../config/banco.js"
 
-const Usuario = banco.sequelize.define("usuarios", {
+const AnuncianteEmpresa = banco.sequelize.define("anunciante_empresas", {
     id: {
         type: banco.Sequelize.INTEGER,
         primaryKey: true,
@@ -19,7 +19,12 @@ const Usuario = banco.sequelize.define("usuarios", {
         type: banco.Sequelize.STRING(250),
         allowNull: false,
     },
-    cpf: {
+    cpf_cnpj: {
+        type: banco.Sequelize.STRING(20),
+        allowNull: false,
+        unique: true,
+    },
+    telefone: {
         type: banco.Sequelize.STRING(20),
         allowNull: false,
         unique: true,
@@ -27,10 +32,10 @@ const Usuario = banco.sequelize.define("usuarios", {
     status: {
         type: banco.Sequelize.INTEGER,
         defaultValue: 1,
-    },
+    }
 })
 
 
-//Usuario.sync()
+//AnuncianteEmpresa.sync()
 
-export default Usuario
+export default AnuncianteEmpresa

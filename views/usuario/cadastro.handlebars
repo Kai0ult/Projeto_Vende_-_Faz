@@ -25,13 +25,11 @@
         <h2 class="text-center title mb-4">Cadastro</h2>
 
         <form action="/usuario/salvar" method="POST">
-          <div class="btn-group w-100 mb-3 toggle-switch" role="group">
+          <!--<div class="btn-group w-100 mb-3 toggle-switch" role="group">
             <input type="radio" class="btn-check" name="tipo" id="cliente" value=1 checked>
             <label class="btn btn-toggle" for="cliente">Cliente</label>
 
-            <input type="radio" class="btn-check" name="tipo" id="anunciante" value=2>
-            <label class="btn btn-toggle" for="anunciante">Anunciante</label>
-          </div>
+          </div>-->
 
           <div class="mb-3">
             <label for="nome" class="form-label">Nome</label>
@@ -44,8 +42,8 @@
           </div>
 
           <div class="mb-3">
-            <label for="cpf_cnpj" class="form-label">CPF / CNPJ</label>
-            <input type="text" id="cpf_cnpj" name="cpf_cnpj" class="form-control" required>
+            <label for="cpf" class="form-label">CPF</label>
+            <input type="text" id="cpf" name="cpf" class="form-control" required>
           </div>
 
           <div class="mb-4">

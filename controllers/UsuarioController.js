@@ -1,8 +1,7 @@
 import Usuario from '../models/Usuario.js'
 import passport from 'passport'
 import bcrypt from 'bcryptjs'
-import { cpf, cnpj } from 'cpf-cnpj-validator'
-
+import { cpf } from 'cpf-cnpj-validator'
 
 class UsuarioController {
     cadastrar = (req, res) => {
@@ -10,53 +9,45 @@ class UsuarioController {
     }
 
     salvar = async (req, res) => {
-
-        let nome = req.body.nome;
-        let email = req.body.email;
-        let senha = req.body.senha;
-        let tipo = parseInt(req.body.tipo);
-        let cpf_cnpj = req.body.cpf_cnpj;
+        let nome = req.body.nome
+        let email = req.body.email
+        let senha = req.body.senha
+        let cpfInput = req.body.cpf
 
         let user = await Usuario.findOne({ where: { email } })
         if (user) {
-            req.flash('error_msg', 'Usuário já cadastrado!')
+            req.flash('error_msg', 'Email já cadastrado!')
             return res.redirect('/usuario/cadastro')
         }
 
-        if (tipo === 1) {
-            if (!cpf.isValid(cpf_cnpj)) {
-                req.flash('error_msg', 'CPF inválido!')
-                return res.redirect('/usuario/cadastro')
-            }
-        } else if (tipo === 2) {
-            if (!cnpj.isValid(cpf_cnpj)) {
-                req.flash('error_msg', 'CNPJ inválido!')
-                return res.redirect('/usuario/cadastro')
-            }
-        } else {
-            req.flash('error_msg', 'Tipo de usuário inválido!')
+        if (!cpf.isValid(cpfInput)) {
+            req.flash('error_msg', 'CPF inválido!')
             return res.redirect('/usuario/cadastro')
         }
 
-        const saltRounds = 10
-        const senhaCriptografada = await bcrypt.hash(senha, saltRounds)
+        const cpfExistente = await Usuario.findOne({ where: { cpf: cpfInput } })
+        if (cpfExistente) {
+            req.flash('error_msg', 'CPF já cadastrado!')
+            return res.redirect('/usuario/cadastro')
+        }
 
         try {
+            const senhaCriptografada = await bcrypt.hash(senha, 10)
+
             await Usuario.create({
                 nome,
                 email,
                 senha: senhaCriptografada,
-                tipo,
-                cpf_cnpj,
+                cpf: cpfInput,
                 status: 1
             })
 
             req.flash('success_msg', 'Cadastro realizado com sucesso! Faça login.')
             return res.redirect('/usuario/login')
         } catch (err) {
-            console.error('Erro ao cadastrar usuário:', err);
-            req.flash('error_msg', 'Erro interno ao cadastrar usuário.');
-            return res.redirect('/usuario/cadastro');
+            console.error('Erro ao cadastrar usuário:', err)
+            req.flash('error_msg', 'Erro interno ao cadastrar usuário.')
+            return res.redirect('/usuario/cadastro')
         }
     }
 
@@ -65,11 +56,11 @@ class UsuarioController {
     }
 
     logar = (req, res, next) => {
-        passport.authenticate('local', {
-            successRedirect: '/principal',
+        passport.authenticate('usuario-local', {
+            successRedirect: '/usuario/principal',
             failureRedirect: '/usuario/login',
             failureFlash: true
-        })(req, res, next)
+        })(req, res, next);
     }
 
     logout = (req, res, next) => {
