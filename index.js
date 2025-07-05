@@ -50,10 +50,6 @@ app.get('/', (req, res) => {
     res.render("usuario/principal")
 })
 
-app.get('/principal', (req, res) => {
-    res.render("usuario/principal")
-})
-
 app.get('/cadastro', (req, res) => {
     res.render('usuario/cadastro')
 })
