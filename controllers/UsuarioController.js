@@ -56,11 +56,11 @@ class UsuarioController {
     }
 
     logar = (req, res, next) => {
-        passport.authenticate('local', {
-            successRedirect: '/principal',
+        passport.authenticate('usuario-local', {
+            successRedirect: '/usuario/principal',
             failureRedirect: '/usuario/login',
             failureFlash: true
-        })(req, res, next)
+        })(req, res, next);
     }
 
     logout = (req, res, next) => {

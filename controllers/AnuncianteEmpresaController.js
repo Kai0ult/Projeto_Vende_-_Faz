@@ -17,7 +17,7 @@ class AnuncianteEmpresaController {
 
         const isAPI = req.headers.accept?.includes('application/json') || req.headers['content-type'] === 'application/json';
 
-        
+
         if (!nome || !email || !senha || !cpfCnpjInput || !telefone) {
             const msg = 'Campos obrigatórios ausentes';
             return isAPI
@@ -25,7 +25,7 @@ class AnuncianteEmpresaController {
                 : (req.flash('error_msg', msg), res.redirect('/anunciante_empresa/cadastro'));
         }
 
-        
+
         let documentoLimpado = null;
         if (cpf.isValid(cpfCnpjInput)) {
             documentoLimpado = cpf.strip(cpfCnpjInput);
@@ -62,7 +62,7 @@ class AnuncianteEmpresaController {
                 : (req.flash('error_msg', msg), res.redirect('/anunciante_empresa/cadastro'));
         }
 
-    
+
         try {
             const senhaCriptografada = await bcrypt.hash(senha, 10);
 
@@ -96,10 +96,24 @@ class AnuncianteEmpresaController {
     }
 
     logar = (req, res, next) => {
-        passport.authenticate('local', {
-            successRedirect: '/principal',
-            failureRedirect: '/anunciante_empresa/login',
-            failureFlash: true
+        passport.authenticate('anunciante-local', (err, user, info) => {
+            if (err) {
+                console.error('Erro no login:', err)
+                return next(err)
+            }
+            if (!user) {
+                req.flash('error_msg', info?.message || 'Falha ao autenticar')
+                return res.redirect('/anunciante_empresa/login')
+            }
+
+            req.logIn(user, (err) => {
+                if (err) {
+                    console.error('Erro ao logar usuário:', err)
+                    return next(err)
+                }
+                return res.redirect('/anunciante_empresa/principal')
+            })
+
         })(req, res, next)
     }
 

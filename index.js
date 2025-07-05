@@ -8,7 +8,6 @@ import path from "path"
 import { fileURLToPath } from 'url'
 import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access"
 import auth from './config/autenticacao.js'
-import logado from './config/regras.js'
 import session from 'express-session'
 import flash from 'connect-flash'
 import passport from 'passport'
@@ -44,7 +43,9 @@ app.use(bodyParser.json())
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 app.use(express.static(path.join(__dirname, 'public')))
 
+import { logadoUsuario } from './config/regras.js'
 import usuario from './routes/usuario.js'
+import anunciante_empresa from './routes/anunciante_empresa.js'
 app.get('/', (req, res) => {
     res.render("usuario/principal")
 })
@@ -58,8 +59,6 @@ app.get('/cadastro', (req, res) => {
 })
 
 app.use('/usuario', usuario)
-
-import anunciante_empresa from './routes/anunciante_empresa.js'
 app.use('/anunciante_empresa', anunciante_empresa)
 
 app.use((err, req, res, next) => {
@@ -68,9 +67,17 @@ app.use((err, req, res, next) => {
     res.redirect('/')
 })
 
-app.get('/principal', usuario, (req, res) => {
+
+app.get('/usuario/principal', logadoUsuario, (req, res) => {
     const nome = req.user.nome
     res.render("usuario/principal", { nome })
 })
+
+app.get('/anunciante_empresa/principal', (req, res) => {
+    res.render("anunciante_empresa/principal")
+})
+
+import anuncios from './routes/anuncios.js'
+app.use('/anuncio', anuncios)
 
 app.listen(3000, () => console.log('Servidor Rodando em http://localhost:3000'))

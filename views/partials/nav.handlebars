@@ -1,29 +1,53 @@
 <nav class="navbar navbar-expand-lg bg-white pt-0 pb-0 sticky-top shadow-lg">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">
-            <img alt="logo" src="./images/logo.png" class="logo">
+            <img alt="logo" src="/images/logo.png" class="logo">
         </a>
-        <ul class="nav justify-content-end align-items-center">
-            <li class="nav-item">
-                <a class="nav-link active blue-text" aria-current="page" href="#">
-                    <span class="border-blue"><strong>Início</strong></span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link blue-text" href="#">
-                    <span class="border-blue"><strong>Sobre</strong></span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link blue-text" href="#">
-                    <span class="border-blue"><strong>Contato</strong></span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="usuario/cadastro">
-                    <img alt="conta" src="./images/user-icon.png">
-                </a>
-            </li>
-        </ul>
+        <!-- Botão hamburguer -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav align-items-center">
+                <li class="nav-item me-4">
+                    <a class="nav-link blue-text" aria-current="page" href="#">
+                        <span class="border-blue"><strong>Início</strong></span>
+                    </a>
+                </li>
+                <li class="nav-item me-4">
+                    <a class="nav-link blue-text" href="#">
+                        <span class="border-blue"><strong>Sobre</strong></span>
+                    </a>
+                </li>
+                <li class="nav-item me-4">
+                    <a class="nav-link blue-text" href="#">
+                        <span class="border-blue"><strong>Contato</strong></span>
+                    </a>
+                </li>
+                <!-- Ícone de usuário com dropdown(aparece só em telas grandes)-->
+                <li class="nav-item dropdown me-3 d-none d-lg-block">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img alt="conta" src="/images/user-icon.png">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li><a title="{{nome}}" class="dropdown-item" href="/perfil">Meu Perfil</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="usuario/logout">Sair</a></li>
+                    </ul>
+                </li>
+                <!-- Links "Meu Perfil" e "Sair" para telas menore -->
+                <li class="nav-item me-4 d-block d-lg-none">
+                    <a class="nav-link blue-text" href="/perfil">
+                        <span class="border-blue"><strong>Meu Perfil</strong></span>
+                    </a>
+                </li>
+                <li class="nav-item me-4 d-block d-lg-none">
+                    <a class="nav-link blue-text" href="/logout">
+                        <span class="border-blue"><strong>Sair</strong></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>

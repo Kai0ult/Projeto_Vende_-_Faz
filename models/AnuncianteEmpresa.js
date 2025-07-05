@@ -1,6 +1,6 @@
 import banco from "../config/banco.js"
 
-const AnuncianteEmpresa = banco.sequelize.define("anunciante_empresa", {
+const AnuncianteEmpresa = banco.sequelize.define("anunciante_empresas", {
     id: {
         type: banco.Sequelize.INTEGER,
         primaryKey: true,
