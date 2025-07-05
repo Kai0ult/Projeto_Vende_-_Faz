@@ -3,19 +3,29 @@
 {{>nav}}
 {{> announcement}}
 <div class="container-fluid p-0">
-    <div class="banner text-white w-100 d-flex align-items-center">
+    <div class="banner text-white w-100 d-flex align-items-center" style="min-height: 50vh;">
         <div class="container">
-            <div class="row justify-content-center align-items-center text-center text-md-start">
-                <div class="col-md-5 mb-4 mb-md-0">
-                    <h2 class="mb-3">
-                        Anúncios de produtos<br>e serviços locais em<br>
-                        <span class="green-text">um só lugar</span>
-                    </h2>
-                    <a href="/usuario/cadastro" id="btn-banner" class="btn btn-success">Comece aqui</a>
+            <div class="row justify-content-center text-center">
+            <div class="col-12 col-md-10 mx-auto">
+                <h2 class="mb-4">
+                Anúncios de produtos<br>e serviços locais em<br>
+                <span class="green-text">um só lugar</span>
+                </h2>
+
+
+                <div class="button-wrapper d-flex flex-column flex-md-row justify-content-center align-items-center gap-4 mt-4">
+                <div class="button-card p-4 text-dark text-center">
+                    <p class="btn-desc">Sou consumidor, quero procurar anúncios</p>
+                    <a href="/usuario/cadastro" class="btn-custom">Comece Aqui!</a>
                 </div>
-                <div class="col-md-7 text-center">
-                    <img src="/images/m.png" alt="Imagem ilustrativa" class="card-image" style="max-width: 75%;">
+
+
+                <div class="button-card p-4 text-dark text-center">
+                    <p class="btn-desc">Quero anunciar meus produtos ou serviços</p>
+                    <a href="/anunciante_empresa/cadastro" class="btn-custom">Comece Aqui!</a>
                 </div>
+                </div>
+            </div>
             </div>
         </div>
     </div>
